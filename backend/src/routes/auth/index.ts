@@ -12,7 +12,7 @@ import { isAuthenticated } from '../../middleware/isAuthenticated';
 
 const router = Router();
 
-router.post('/register', signup);
+router.post('/signup', signup);
 router.post('/verify', isAuthenticated, verifyAccount);
 router.post('/resend-otp', isAuthenticated, resendOTP);
 router.post('/login', login);

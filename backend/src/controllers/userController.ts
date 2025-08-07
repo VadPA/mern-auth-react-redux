@@ -21,6 +21,10 @@ export const signup = catchAsyncError(
   async (req: Request, res: Response, next: NextFunction) => {
     try {
       const { email, password, passwordConfirm, name } = req.body;
+      console.log('email', email);
+      console.log('password', password);
+      console.log('passwordConfirm', passwordConfirm);
+      console.log('name', name);
 
       const isExistingUser = await userModel.findOne({ email });
 
@@ -74,6 +78,7 @@ export const verifyAccount = catchAsyncError(
   async (req: Request, res: Response, next: NextFunction) => {
     try {
       const { otp } = req.body;
+      // console.log('otp', otp);
       if (!otp) {
         return next(new ErrorHandler('Otp is missing', 400));
       }
@@ -226,6 +231,9 @@ export const forgotPassword = catchAsyncError(
 export const resetPassword = catchAsyncError(
   async (req: Request, res: Response, next: NextFunction) => {
     const { email, otp, password, passwordConfirm } = req.body;
+    console.log(email);
+    console.log(otp);
+    console.log(password);
     const user = await userModel.findOne({
       email,
       resetOtp: otp,

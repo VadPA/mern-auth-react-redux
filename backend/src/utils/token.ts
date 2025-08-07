@@ -22,23 +22,18 @@ export const createSendToken = (
   const token = signToken(user._id);
 
   const cookieOptions: CookieOptions = {
-    expires: new Date(
-      Date.now() + parseInt(process.env.JWT_COOKIE_EXPIRES as string)
-    ),
+    expires: new Date(Date.now() + 3 * 24 * 60 * 60 * 1000),
     httpOnly: true,
     // secure: process.env.NODE_ENV === 'production', // only secure in production
     // sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'Lax',
   };
 
-  // console.log('cookieOptions: ', cookieOptions);
-  // console.log('token: ', token);
-  // console.log('res.cookie: ', res.cookie);
-  res.cookie('token', token, cookieOptions);
+  // res.cookie('token', token, cookieOptions);
   user.password = '';
   user.passwordConfirm = '';
   user.otp = '';
 
-  res.status(statusCode).json({
+  res.status(statusCode).cookie('token', token, cookieOptions).json({
     status: 'success',
     message,
     token,
